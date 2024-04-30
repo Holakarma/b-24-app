@@ -7,6 +7,8 @@ export function DashboardSettings({
     settings,
     dashboards,
     setDashboards,
+    toggleSettings,
+    setOpenedDashboard
 }) {
     if (!settings) return null;
     const {
@@ -26,7 +28,7 @@ export function DashboardSettings({
 
     return (
         <div className="card border-3 p-5 mb-4">
-            <h3 className="mb-4">Настройка Дэшборда</h3>
+            <h3 className="mb-4">Настройка Дашборда</h3>
             <div className="form-floating mb-4 z-0">
                 <input
                     onChange={changeListener}
@@ -35,13 +37,15 @@ export function DashboardSettings({
                     id="floatingInput"
                     placeholder="Название дешборда"
                 />
-                <label htmlFor="floatingInput">Название дешборда</label>
+                <label htmlFor="floatingInput">Название дашборда</label>
             </div>
             <AddParticipants
                 participants={participants}
                 setParticipants={setParticipants}
             />
             <AddDashBoardBtn
+            toggleSettings={toggleSettings}
+            setOpenedDashboard={setOpenedDashboard}
                 dashboards={dashboards}
                 setDashboards={setDashboards}
                 dashBoardTitle={dashBoardTitle}

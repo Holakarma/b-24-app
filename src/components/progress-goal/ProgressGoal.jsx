@@ -1,16 +1,29 @@
 import React from "react";
+import { formatNumber } from "../../utils/formatingNumbers";
 
-export function ProgressGoal({ chosenCategories, goal, sum, description }) {
+export function ProgressGoal({
+    chosenCategories,
+    goal,
+    sum,
+    dimension,
+    description,
+}) {
     if (goal == 0 || !goal) {
         return null;
     }
     if (chosenCategories.length != 0) {
         const rest = goal - sum;
-        const value = parseInt(goal) ? Math.round((sum / goal) * 100) : 0;
+        const value = parseInt(goal) ? Math.floor((sum / goal) * 100) : 0;
         return (
-            <div className="row g-0 my-3 gap-2">
-                <div className="col-2 align-self-center text-center">
-                    {sum} / <span className="text-secondary">{goal}</span>
+            <div className="row g-0 mt-3 gap-2">
+                {description ? (
+                    <div className="col-2 align-self-center text-center">
+                        {description}
+                    </div>
+                ) : null}
+                <div className="col-3 align-self-center text-center">
+                    {formatNumber(sum)} /{" "}
+                    <span className="text-secondary">{formatNumber(goal)}</span>
                 </div>
                 <div
                     className="progress col align-self-center"
@@ -18,13 +31,17 @@ export function ProgressGoal({ chosenCategories, goal, sum, description }) {
                     <div
                         className="progress-bar progress-bar-striped progress-bar-animated"
                         style={{ width: value ? value + "%" : "0%" }}>
-                        {value ? value + "%" : ""}
+                        {value ? formatNumber(value) + "%" : ""}
                     </div>
                 </div>
-                <div className="col-4 text-center">
+                <div className="col-4 text-center align-self-center">
                     {rest <= 0
-                        ? value ? "План выполнен!" : "План не установлен"
-                        : `До выполнения плана: ${rest} ${description}`}
+                        ? value
+                            ? "План выполнен!"
+                            : "План не установлен"
+                        : `До выполнения плана: ${formatNumber(
+                              rest,
+                          )}\u00A0${dimension}`}
                 </div>
             </div>
         );

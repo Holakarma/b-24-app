@@ -2,17 +2,16 @@ export function saveCompanyParameters(
     setCategoriesList,
     isChanged,
     setChanges,
-    companyMoneyGoal,
-    companyDealsGoal,
-    companyProductsGoal,
+    categoriesMoneyGoal,
+    categoriesDealsGoal,
+    categoriesProductsGoal,
+    categoriesCallsGoal,
     activeCategories,
     dashboard,
     setDashboards,
     showSavedDialog,
     setError,
-    moneyStatistics,
-    dealsStatistics,
-    productsStatistics,
+    usedStatistics,
 ) {
     if (!isChanged) return;
     if (activeCategories.length == 0) {
@@ -20,15 +19,10 @@ export function saveCompanyParameters(
         return;
     }
     let statistics = [];
-    if (moneyStatistics) {
-        statistics.push("money");
+    for (let key in usedStatistics) {
+        usedStatistics[key] && statistics.push(key);
     }
-    if (dealsStatistics) {
-        statistics.push("deals");
-    }
-    if (productsStatistics) {
-        statistics.push("products");
-    }
+
     BX24.callBatch(
         [
             [
@@ -37,7 +31,7 @@ export function saveCompanyParameters(
                     ENTITY: "dashboards",
                     ID: dashboard.ID,
                     PROPERTY_VALUES: {
-                        COMPANY_MONEY_GOAL: companyMoneyGoal,
+                        CATEGORIES_MONEY_GOAL: categoriesMoneyGoal,
                     },
                 },
             ],
@@ -47,7 +41,7 @@ export function saveCompanyParameters(
                     ENTITY: "dashboards",
                     ID: dashboard.ID,
                     PROPERTY_VALUES: {
-                        COMPANY_DEALS_GOAL: companyDealsGoal,
+                        CATEGORIES_DEALS_GOAL: categoriesDealsGoal,
                     },
                 },
             ],
@@ -57,7 +51,17 @@ export function saveCompanyParameters(
                     ENTITY: "dashboards",
                     ID: dashboard.ID,
                     PROPERTY_VALUES: {
-                        COMPANY_PRODUCTS_GOAL: companyProductsGoal,
+                        CATEGORIES_PRODUCTS_GOAL: categoriesProductsGoal,
+                    },
+                },
+            ],
+            [
+                "entity.item.update",
+                {
+                    ENTITY: "dashboards",
+                    ID: dashboard.ID,
+                    PROPERTY_VALUES: {
+                        CATEGORIES_CALLS_GOAL: categoriesCallsGoal,
                     },
                 },
             ],

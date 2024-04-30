@@ -1,8 +1,8 @@
 export const getDeals = (function (savedCategories = []) {
     return function (category) {
-        const deals = savedCategories.find((savedCategory) => {
-            return savedCategory.id == category;
-        });
+        const deals = savedCategories.find(
+            (savedCategory) => savedCategory.id == category,
+        );
         return new Promise((resolve) => {
             if (deals) resolve(deals.deals);
             else {

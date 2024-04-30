@@ -24,16 +24,15 @@ export function ChoiceCategory({
     }, [activeCategories]);
 
     return (
-        <div className="col-3 mb-3">
-            <div className="dropdown position-relative">
+        <div className="mb-4 mt-2">
+            <div className="position-relative">
                 <button
                     onClick={() => {
                         setShowCategories(showCategories ? false : true);
                     }}
-                    className="btn btn-secondary dropdown-toggle w-100"
-                    type="button"
-                    data-bs-toggle="dropdown">
-                    Выбрать направления
+                    className="btn btn-primary w-100"
+                    type="button">
+                    Выбрать воронки
                 </button>
                 {showCategories ? (
                     <CategoriesPopup

@@ -8,8 +8,9 @@ export function AddDashBoardBtn({
     setStatus,
     statusErr,
     participants,
+    toggleSettings,
+    setOpenedDashboard,
 }) {
-
     function createDashboard() {
         const strParticipants = participants.join(",");
         BX24.callMethod(
@@ -28,6 +29,16 @@ export function AddDashBoardBtn({
                     { ENTITY: "dashboards" },
                     function (result) {
                         setDashboards(result.data());
+                        toggleSettings();
+                        setOpenedDashboard(
+                            result
+                                .data()
+                                .find(
+                                    (dashboards) =>
+                                        dashboards.PROPERTY_VALUES
+                                            .DASHBOARD_TITLE === dashBoardTitle,
+                                ),
+                        );
                     },
                 );
             },
@@ -68,8 +79,7 @@ export function AddDashBoardBtn({
             <button
                 onClick={validateDashboard}
                 type="button"
-                className={`btn ${reColorBtn()}`}
-            >
+                className={`btn ${reColorBtn()}`}>
                 Создать
             </button>
         </>

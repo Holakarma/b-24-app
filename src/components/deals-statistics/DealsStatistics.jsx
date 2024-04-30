@@ -1,62 +1,37 @@
 import React from "react";
-import { AddCompanyGoal } from "../add-company-goal/AddCompanyGoal";
-import { ShowDealsCategory } from "../show-deals-category/ShowDealsCategory";
+import { AddGoal } from "../addGoal/AddGoal";
 import { ProgressGoal } from "../progress-goal/ProgressGoal";
 
 export function DealsStatistics({
     setError,
-    companyDealsGoal,
-    setCompanyDealsGoal,
+    categoriesDealsGoal,
+    setCategoriesDealsGoal,
     setChanges,
     chosenCategories,
+    countDeals
 }) {
-    const [countDeals, setCountDeals] = React.useState(0);
-    const count = React.useRef(0);
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <h5 className="mb-0">Cтатистика по сделкам</h5>
-            </div>
-            <div className="card-body">
+        <div>
+            <div className="bg-body-tertiary rounded-4 p-4 mb-2">
                 <div className="row g-0">
-                    <AddCompanyGoal
+                    <AddGoal
                         setError={setError}
-                        companyGoal={companyDealsGoal}
-                        setCompanyGoal={setCompanyDealsGoal}
+                        goal={categoriesDealsGoal}
+                        setGoal={setCategoriesDealsGoal}
                         setChanges={setChanges}
-                        description={"Сделок"}
+                        dimension={"Сделок"}
+                        description={"Цель сделок"}
                     />
                 </div>
                 {chosenCategories.length != 0 ? (
                     <ProgressGoal
                         chosenCategories={chosenCategories}
-                        goal={companyDealsGoal}
+                        goal={categoriesDealsGoal}
                         sum={countDeals}
-                        description={"Сделок"}
-                    /> 
+                        dimension={"Сделок"}
+                    />
                 ) : null}
-                {chosenCategories.length == 0 ? null : (
-                    <div className="my-2 card">
-                        <h6 className="card-header">Статистика по направлениям</h6>
-                        <ul className="g-0 card-body list-group list-group-flush p-0">
-                           {chosenCategories.map((category) => {
-                                count.current = countDeals;
-                                return (
-                                    <ShowDealsCategory
-                                        key={category.id}
-                                        category={category}
-                                        countDeals={countDeals}
-                                        addCount={(res) => {
-                                            count.current += res;
-                                            setCountDeals(count.current);
-                                        }}
-                                    />
-                                );
-                            })}
-                        </ul>
-                    </div>
-                )}
             </div>
         </div>
     );

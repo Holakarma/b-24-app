@@ -3,7 +3,7 @@ import React from "react";
 export function ShowParticipants({ arParticipants }) {
 
     return (
-        <div className="card p-3 my-2">
+        <div className="card border-2 p-3 my-2">
             <h4>Участники</h4>
             {arParticipants.map((participant, id) => {
                 setTimeout(BX24.fitWindow, 10);

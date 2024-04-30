@@ -7,6 +7,7 @@ export default function CategoriesPopup({
     setActiveCategories,
     setError,
     setChanges,
+    setDealsLoaded,
 }) {
     return (
         <div className="card border-3 p-3 pt-4 my-2 position-absolute z-1">
@@ -21,6 +22,7 @@ export default function CategoriesPopup({
                 setActiveCategories={setActiveCategories}
                 setError={setError}
                 setChanges={setChanges}
+                setDealsLoaded={setDealsLoaded}
             />
         </div>
     );

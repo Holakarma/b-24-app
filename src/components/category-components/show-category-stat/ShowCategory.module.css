@@ -1,0 +1,8 @@
+.heading:hover {
+    color: var(--bs-secondary-text-emphasis);
+    cursor: pointer;
+}
+
+.category:not(:last-child) {
+    border-bottom: 1px solid var(--bs-card-border-color);
+}

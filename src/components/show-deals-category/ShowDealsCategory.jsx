@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { getDeals } from "../../utils/createSavedDeals";
+import { formatNumber } from "../../utils/formatingNumbers";
 
 export function ShowDealsCategory({ category, countDeals, addCount }) {
     const [count, setCount] = React.useState(0);
@@ -10,13 +11,15 @@ export function ShowDealsCategory({ category, countDeals, addCount }) {
         if (isMounted) {
             if (category.id) {
                 getDeals(category.id).then((result) => {
-                    result.forEach((deal) => {
-                        if (deal.STAGE_SEMANTIC_ID === "S") {
-                            countCompleted++;
-                        }
-                    });
-                    addCount(countCompleted);
-                    setCount(countCompleted);
+                    if (isMounted) {
+                        result.forEach((deal) => {
+                            if (deal.STAGE_SEMANTIC_ID === "S") {
+                                countCompleted++;
+                            }
+                        });
+                        addCount(countCompleted);
+                        setCount(countCompleted);
+                    }
                 });
             }
         }
@@ -30,24 +33,20 @@ export function ShowDealsCategory({ category, countDeals, addCount }) {
     }
 
     return (
-        <li className="list-group-item">
-            <div className="row g-0">
-                <div className="col-3">{category.name}</div>
+        <div className="row g-0 my-3">
+            <div className="col-2 text-end pe-4">Сделки</div>
+            <div
+                className="progress col align-self-center"
+                style={{ height: 100 + "%" }}>
                 <div
-                    className="progress col align-self-center"
-                    style={{ height: 100 + "%" }}>
-                    <div
-                        className="progress-bar"
-                        style={{
-                            width: countDeals
-                                ? getPercent(count / countDeals)
-                                : 0,
-                        }}>
-                        {countDeals ? getPercent(count / countDeals) : "0%"}
-                    </div>
+                    className="progress-bar"
+                    style={{
+                        width: countDeals ? getPercent(count / countDeals) : 0,
+                    }}>
+                    {countDeals ? getPercent(count / countDeals) : "0%"}
                 </div>
-                <div className="col-2 text-center">{count}</div>
             </div>
-        </li>
+            <div className="col-3 ps-4">{formatNumber(count)}</div>
+        </div>
     );
 }

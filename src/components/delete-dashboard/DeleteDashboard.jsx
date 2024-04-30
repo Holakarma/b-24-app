@@ -24,6 +24,7 @@ export function DeleteDashboard({
                 );
                 setOpenedDashboard(undefined);
                 setTimeout(BX24.fitWindow, 10);
+                BX24.scrollParentWindow(180);
             },
         );
     }
@@ -33,22 +34,21 @@ export function DeleteDashboard({
                 <div className="row row-cols-auto align-items-center g-0 gap-2">
                     <p className="col mb-0">Вы уверены?</p>
                     <button
-                        className="btn btn-success col"
+                        className="btn btn-success"
                         onClick={deleteHandler}>
                         Да
                     </button>
                     <button
-                        className="btn btn-danger col"
+                        className="btn btn-danger"
                         onClick={() => setConfirmation(false)}>
                         Отмена
                     </button>
                 </div>
             ) : (
                 <button
-                    // onClick={deleteHandler}
                     onClick={() => setConfirmation(true)}
-                    className="btn btn-danger">
-                    Удалить Дэшборд
+                    className="btn btn-danger w-25">
+                    Удалить Дашборд
                 </button>
             )}
         </div>

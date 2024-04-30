@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Dashboard } from "../dashboard/Dashboard";
+import React from "react";
 import { DashboardSettings } from "../dashboard-settings/DashboardSettings";
 import { DashboardOpen } from "../dashboard-open/DashboardOpen";
+import { ShowDasboards } from "../show-dashboards/ShowDashboards";
 
-export function DashboardField({ oldDashboards }) {
+export function DashboardField({ oldDashboards, setTitle }) {
     const [dashboards, setDashboards] = React.useState(oldDashboards);
 
     const [settings, settingsAppear] = React.useState();
@@ -11,29 +11,23 @@ export function DashboardField({ oldDashboards }) {
         settings ? settingsAppear(0) : settingsAppear(1);
         setTimeout(BX24.fitWindow, 10);
     }
-
     const [openedDashboard, setOpenedDashboard] = React.useState(undefined);
 
     return (
-        <div className="mt-5">
-            <div className="row row-cols-auto gap-1 g-0 my-5">
+        <div className="mt-3">
+            <div className="my-5">
                 {openedDashboard ? (
                     <DashboardOpen
+                        setTitle={setTitle}
                         setOpenedDashboard={setOpenedDashboard}
                         dashboard={openedDashboard}
                         setDashboards={setDashboards}
                     />
                 ) : (
-                    dashboards.map((dashboard) => {
-                        return (
-                            <Dashboard
-                                setOpenedDashboard={setOpenedDashboard}
-                                key={dashboard.ID}
-                                dashboard={dashboard}
-                                setDashboards={setDashboards}
-                            />
-                        );
-                    })
+                    <ShowDasboards
+                        dashboards={dashboards}
+                        setOpenedDashboard={setOpenedDashboard}
+                    />
                 )}
             </div>
             {openedDashboard ? null : (
@@ -41,12 +35,14 @@ export function DashboardField({ oldDashboards }) {
                     <button
                         onClick={toggleSettings}
                         className="btn btn-primary w-100 mb-4">
-                        Добавить дэшборд
+                        Добавить дашборд
                     </button>
                     <DashboardSettings
                         settings={settings}
                         dashboards={dashboards}
                         setDashboards={setDashboards}
+                        toggleSettings={toggleSettings}
+                        setOpenedDashboard={setOpenedDashboard}
                     />
                 </>
             )}

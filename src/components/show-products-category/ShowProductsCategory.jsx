@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { getDeals } from "../../utils/createSavedDeals";
 import { getProducts } from "../../utils/createSavedProducts";
+import { formatNumber } from "../../utils/formatingNumbers";
 
 export function ShowProductsCategory({ category, countProducts, addCount }) {
     const [count, setCount] = React.useState(0);
@@ -9,21 +10,23 @@ export function ShowProductsCategory({ category, countProducts, addCount }) {
 
     useEffect(() => {
         let isMounted = true;
-        if (isMounted) {
-            if (category.id) {
-                getDeals(category.id).then((result) => {
+        if (category.id) {
+            getDeals(category.id).then((result) => {
+                if (isMounted) {
                     result.forEach((deal) => {
                         if (deal.STAGE_SEMANTIC_ID === "S") {
                             productsWon.push(deal.ID);
                         }
                     });
                     getProducts(productsWon, category.id).then((result) => {
-                        countCompleted = result.length;
-                        addCount(countCompleted);
-                        setCount(countCompleted);
+                        if (isMounted) {
+                            countCompleted = result.length;
+                            addCount(countCompleted);
+                            setCount(countCompleted);
+                        }
                     });
-                });
-            }
+                }
+            });
         }
         return () => {
             addCount(-countCompleted);
@@ -35,9 +38,8 @@ export function ShowProductsCategory({ category, countProducts, addCount }) {
     }
 
     return (
-        <li className="list-group-item">
-            <div className="row g-0">
-                <div className="col-3">{category.name}</div>
+            <div className="row g-0 my-3">
+                <div className="col-2 text-end pe-4">Товары</div>
                 <div
                     className="progress col align-self-center"
                     style={{ height: 100 + "%" }}>
@@ -53,8 +55,7 @@ export function ShowProductsCategory({ category, countProducts, addCount }) {
                             : "0%"}
                     </div>
                 </div>
-                <div className="col-2 text-center">{count}</div>
+                <div className="col-3 ps-4">{formatNumber(count)}</div>
             </div>
-        </li>
     );
 }

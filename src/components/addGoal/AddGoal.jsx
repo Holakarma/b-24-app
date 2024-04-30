@@ -1,18 +1,21 @@
 import React from "react";
 
-export function AddCompanyGoal({
+export function AddGoal({
     setError,
-    companyGoal,
-    setCompanyGoal,
+    goal,
+    setGoal,
     setChanges,
+    dimension,
     description,
 }) {
     function changeHandler(e) {
         setError(false);
         setChanges(true);
         e.target.value.replace(/\-/g, "");
-        setCompanyGoal(e.target.value);
+        setGoal(e.target.value);
     }
+
+
 
     return (
         <div className="row g-0 gap-2 col me-2">
@@ -20,16 +23,16 @@ export function AddCompanyGoal({
                 <span
                     className="input-group-text"
                     id="basic-addon1">
-                    Цель компании
+                    {description}
                 </span>
                 <input
                     onChange={changeHandler}
                     type="number"
                     className="form-control"
                     placeholder="Общая цель компании"
-                    value={companyGoal ? companyGoal : ""}
+                    value={goal ? goal : ""}
                 />
-                <span className="input-group-text">{description}</span>
+                <span className="input-group-text">{dimension}</span>
             </div>
         </div>
     );

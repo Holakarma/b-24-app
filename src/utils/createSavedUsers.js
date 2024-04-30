@@ -32,4 +32,4 @@ export const getUsers = (function createSavedUsers(savedUsers = []) {
             });
         }
     };
-})()
+})();
