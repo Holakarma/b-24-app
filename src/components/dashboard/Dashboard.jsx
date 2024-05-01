@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { getUsers } from "../../utils/createSavedUsers";
-import { ShowAvatar } from "../showAvatar/ShowAvatar";
-import styles from "./dashboard-style.module.css";
+import React, { useEffect } from 'react';
+import { getUsers } from '../../utils/createSavedUsers';
+import { ShowAvatar } from '../showAvatar/ShowAvatar';
+import styles from './dashboard-style.module.css';
 
 export function Dashboard({
     setOpenedDashboard,
@@ -14,17 +14,23 @@ export function Dashboard({
         setTimeout(BX24.fitWindow, 10);
     }
     const usersList = dashboard.PROPERTY_VALUES.PARTICIPANTS_LIST
-        ? dashboard.PROPERTY_VALUES.PARTICIPANTS_LIST.split(",")
+        ? dashboard.PROPERTY_VALUES.PARTICIPANTS_LIST.split(',')
         : [];
 
     const users = React.useRef([]);
 
     useEffect(() => {
+        let isMounted = true;
         getUsers(usersList).then((res) => {
-            users.current = res;
-            setTimeout(BX24.fitWindow, 10);
-            loadUser();
+            if (isMounted) {
+                users.current = res;
+                setTimeout(BX24.fitWindow, 10);
+                loadUser();
+            }
         });
+        return () => {
+            isMounted = false;
+        };
     }, [usersList]);
 
     return (
@@ -49,7 +55,7 @@ export function Dashboard({
                     </div>
                 </div>
             ) : (
-                "Дашборд доступен только вам"
+                'Дашборд доступен только вам'
             )}
         </div>
     );

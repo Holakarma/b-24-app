@@ -1,9 +1,8 @@
-import React from "react";
-import cls from "./ShowCategory.module.css";
-import { ShowDealsCategory } from "../../show-deals-category/ShowDealsCategory";
-import { ShowMoneyCategory } from "../../show-money-category/ShowMoneyCategory";
-import { ShowProductsCategory } from "../../show-products-category/ShowProductsCategory";
-import { ShowCallsCategory } from "../../show-calls-category/ShowCallsCategory";
+import React from 'react';
+import cls from './ShowCategory.module.css';
+import { ShowDealsCategory } from '../../show-deals-category/ShowDealsCategory';
+import { ShowMoneyCategory } from '../../show-money-category/ShowMoneyCategory';
+import { ShowProductsCategory } from '../../show-products-category/ShowProductsCategory';
 
 export function ShowCategoryStat({
     chosenCategories,
@@ -41,17 +40,20 @@ export function ShowCategoryStat({
                             return (
                                 <li
                                     className={`row align-items-center mx-2 gx-3 py-2 ${cls.category}`}
-                                    key={category.id}>
+                                    key={category.id}
+                                >
                                     <h6
                                         className={`${cls.heading} col-2 py-2 mb-0`}
                                         data-bs-toggle="collapse"
                                         data-bs-target={`#collapseCategory${category.id}`}
-                                        onClick={toggleOpen}>
+                                        onClick={toggleOpen}
+                                    >
                                         {category.name}
                                     </h6>
                                     <div
                                         className={`collapse col bg-body-tertiary rounded-4`}
-                                        id={`collapseCategory${category.id}`}>
+                                        id={`collapseCategory${category.id}`}
+                                    >
                                         {usedStatistics.MONEY ? (
                                             <ShowMoneyCategory
                                                 category={category}
@@ -88,7 +90,7 @@ export function ShowCategoryStat({
                                                 }}
                                             />
                                         ) : null}
-                                        {usedStatistics.OUTGOING_CALLS ||
+                                        {/* {usedStatistics.OUTGOING_CALLS ||
                                         usedStatistics.INCOMING_CALLS ||
                                         usedStatistics.GENERAL_CALLS ? (
                                             <ShowCallsCategory
@@ -103,7 +105,7 @@ export function ShowCategoryStat({
                                                     );
                                                 }}
                                             />
-                                        ) : null}
+                                        ) : null} */}
                                     </div>
                                 </li>
                             );
