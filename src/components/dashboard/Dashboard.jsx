@@ -36,8 +36,7 @@ export function Dashboard({
     return (
         <div
             onClick={openDashboardHandler}
-            className={`card ${styles.dashboardCard} p-4 mt-2`}
-        >
+            className={`card ${styles.dashboardCard} p-4 mt-2 pointer`}>
             <h6 className="display-6">
                 {dashboard.PROPERTY_VALUES.DASHBOARD_TITLE}
             </h6>
