@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export function DeleteDashboard({
     dashboard,
@@ -9,15 +9,15 @@ export function DeleteDashboard({
 
     function deleteHandler() {
         BX24.callMethod(
-            "entity.item.delete",
+            'entity.item.delete',
             {
-                ENTITY: "dashboards",
+                ENTITY: 'dashboards',
                 ID: dashboard.ID,
             },
             function (result) {
                 BX24.callMethod(
-                    "entity.item.get",
-                    { ENTITY: "dashboards" },
+                    'entity.item.get',
+                    { ENTITY: 'dashboards' },
                     function (result) {
                         setDashboards(result.data());
                     },
@@ -29,27 +29,31 @@ export function DeleteDashboard({
         );
     }
     return (
-        <div className="mt-3">
+        <div className="text-end">
             {showconfirmation ? (
-                <div className="row row-cols-auto align-items-center g-0 gap-2">
-                    <p className="col mb-0">Вы уверены?</p>
+                <div className="row row-cols-auto justify-content-end align-items-center g-0 gap-2">
+                    <span className="col">Вы уверены?</span>
                     <button
                         className="btn btn-success"
-                        onClick={deleteHandler}>
+                        onClick={deleteHandler}
+                    >
                         Да
                     </button>
                     <button
                         className="btn btn-danger"
-                        onClick={() => setConfirmation(false)}>
+                        onClick={() => setConfirmation(false)}
+                    >
                         Отмена
                     </button>
                 </div>
             ) : (
-                <button
+                <span
                     onClick={() => setConfirmation(true)}
-                    className="btn btn-danger w-25">
+                    className="text-danger"
+                    style={{ cursor: 'pointer' }}
+                >
                     Удалить Дашборд
-                </button>
+                </span>
             )}
         </div>
     );
