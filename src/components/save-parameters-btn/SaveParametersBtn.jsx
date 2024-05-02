@@ -8,7 +8,6 @@ export function SaveParametersBtn({
     categoriesMoneyGoal,
     categoriesDealsGoal,
     categoriesProductsGoal,
-    categoriesCallsGoal,
     activeCategories,
     dashboard,
     setDashboards,
@@ -74,16 +73,6 @@ export function SaveParametersBtn({
                         ENTITY: "dashboards",
                         ID: dashboard.ID,
                         PROPERTY_VALUES: {
-                            CATEGORIES_CALLS_GOAL: categoriesCallsGoal,
-                        },
-                    },
-                ],
-                [
-                    "entity.item.update",
-                    {
-                        ENTITY: "dashboards",
-                        ID: dashboard.ID,
-                        PROPERTY_VALUES: {
                             CATEGORIES_LIST: activeCategories.join(","),
                         },
                     },
@@ -94,7 +83,7 @@ export function SaveParametersBtn({
                         ENTITY: "dashboards",
                         ID: dashboard.ID,
                         PROPERTY_VALUES: {
-                            USE_STATISTICS: statistics.join(","),
+                            CATEGORIES_STATISTICS: statistics.join(","),
                         },
                     },
                 ],

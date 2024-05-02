@@ -6,6 +6,10 @@ import { alias, openedStat } from './openedStat';
 import { CategoryStat } from '../category-components/category-stat/CategoryStat';
 import DepartmentStat from '../department-components/deparatmentStat/DepartmentStat';
 
+/* 
+BX24.callMethod('entity.delete', {ENTITY: 'dashboards'}, e => e.data())
+ */
+
 export function DashboardOpen({
     setTitle,
     dashboard,
@@ -66,7 +70,7 @@ export function DashboardOpen({
                 };
             case openedStat.department:
                 return {
-                    test: 'test',
+                    dashboard,
                 };
         }
     }, [pickedStat, render, dashboard]);
