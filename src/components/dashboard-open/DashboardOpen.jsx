@@ -45,7 +45,7 @@ export function DashboardOpen({
             fetchParams('users');
         }
         if (isMounted) {
-            setTitle(dashboard.PROPERTY_VALUES.DASHBOARD_TITLE);
+            setTitle(dashboard.NAME);
         }
         return () => {
             setTitle('Дашборды');
