@@ -1,6 +1,7 @@
 import React from "react";
 import { DashboardField } from "../dashboards-field/DashboardField";
 
+
 export function Workspace({oldDashboards}) {
     const [title, setTitle] = React.useState('Дашборды')
     BX24.setTitle("Дашборды");

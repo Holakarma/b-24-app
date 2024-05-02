@@ -1,7 +1,7 @@
-import React from "react";
-import { DashboardSettings } from "../dashboard-settings/DashboardSettings";
-import { DashboardOpen } from "../dashboard-open/DashboardOpen";
-import { ShowDasboards } from "../show-dashboards/ShowDashboards";
+import React from 'react';
+import { DashboardSettings } from '../dashboard-settings/DashboardSettings';
+import { DashboardOpen } from '../dashboard-open/DashboardOpen';
+import { ShowDasboards } from '../show-dashboards/ShowDashboards';
 
 export function DashboardField({ oldDashboards, setTitle }) {
     const [dashboards, setDashboards] = React.useState(oldDashboards);
@@ -34,7 +34,8 @@ export function DashboardField({ oldDashboards, setTitle }) {
                 <>
                     <button
                         onClick={toggleSettings}
-                        className="btn btn-primary w-100 mb-4">
+                        className="btn btn-primary w-100 mb-4"
+                    >
                         Добавить дашборд
                     </button>
                     <DashboardSettings
