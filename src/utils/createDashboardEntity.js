@@ -60,17 +60,17 @@ export function createDashboardEntity() {
                             'entity.item.property.add',
                             {
                                 ENTITY: 'dashboards',
-                                PROPERTY: 'CATEGORIES_CALLS_GOAL',
-                                NAME: 'category calls goal',
-                                TYPE: 'N',
+                                PROPERTY: 'CATEGORIES_STATISTICS',
+                                NAME: 'statistics list',
+                                TYPE: 'S',
                             },
                         ],
                         [
                             'entity.item.property.add',
                             {
                                 ENTITY: 'dashboards',
-                                PROPERTY: 'USE_STATISTICS',
-                                NAME: 'statistics list',
+                                PROPERTY: 'CATEGORIES_PERIOD',
+                                NAME: 'categories date filter',
                                 TYPE: 'S',
                             },
                         ],

@@ -9,9 +9,7 @@ export function ShowCategoryStat({
     dealsSum,
     setDealsSum,
     countDeals,
-    countCalls,
     setCountDeals,
-    setCountCalls,
     countProducts,
     setCountProducts,
     usedStatistics,
@@ -90,22 +88,6 @@ export function ShowCategoryStat({
                                                 }}
                                             />
                                         ) : null}
-                                        {/* {usedStatistics.OUTGOING_CALLS ||
-                                        usedStatistics.INCOMING_CALLS ||
-                                        usedStatistics.GENERAL_CALLS ? (
-                                            <ShowCallsCategory
-                                                category={category}
-                                                countCalls={countCalls}
-                                                usedStatistics={usedStatistics}
-                                                addCount={(res) => {
-                                                    currentCountProducts.current +=
-                                                        res;
-                                                    setCountCalls(
-                                                        currentCountCalls.current,
-                                                    );
-                                                }}
-                                            />
-                                        ) : null} */}
                                     </div>
                                 </li>
                             );

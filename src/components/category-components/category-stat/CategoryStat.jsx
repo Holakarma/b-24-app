@@ -56,10 +56,10 @@ export function CategoryStat({
         MONEY: dashboard.PROPERTY_VALUES.CATEGORIES_MONEY_GOAL,
         DEALS: dashboard.PROPERTY_VALUES.CATEGORIES_DEALS_GOAL,
         PRODUCTS: dashboard.PROPERTY_VALUES.CATEGORIES_PRODUCTS_GOAL,
-        CALLS: dashboard.PROPERTY_VALUES.CATEGORIES_CALLS_GOAL,
     };
 
-    const statistics = dashboard.PROPERTY_VALUES.USE_STATISTICS.split(',');
+    const statistics =
+        dashboard.PROPERTY_VALUES.CATEGORIES_STATISTICS.split(',');
 
     const [categoriesMoneyGoal, setCategoriesMoneyGoal] = React.useState(
         parseInt(startedGoals.MONEY) ? parseInt(startedGoals.MONEY) : 0,
@@ -69,9 +69,6 @@ export function CategoryStat({
     );
     const [categoriesProductsGoal, setCategoriesProductsGoal] = React.useState(
         parseInt(startedGoals.PRODUCTS) ? parseInt(startedGoals.PRODUCTS) : 0,
-    );
-    const [categoriesCallsGoal, setCategoriesCallsGoal] = React.useState(
-        parseInt(startedGoals.CALLS) ? parseInt(startedGoals.CALLS) : 0,
     );
 
     const [isDealsLoaded, setDealsLoaded] = React.useState(false);
@@ -84,9 +81,6 @@ export function CategoryStat({
         MONEY: statistics.includes('MONEY'),
         DEALS: statistics.includes('DEALS'),
         PRODUCTS: statistics.includes('PRODUCTS'),
-        OUTGOING_CALLS: statistics.includes('OUTGOING_CALLS'),
-        INCOMING_CALLS: statistics.includes('INCOMING_CALLS'),
-        GENERAL_CALLS: statistics.includes('GENERAL_CALLS'),
     });
 
     useEffect(() => {
@@ -129,11 +123,6 @@ export function CategoryStat({
     const [dealsSum, setDealsSum] = React.useState(0);
     const [countDeals, setCountDeals] = React.useState(0);
     const [countProducts, setCountProducts] = React.useState(0);
-    const [countCalls, setCountCalls] = React.useState({
-        outgoing: 0,
-        incoming: 0,
-        general: 0,
-    });
 
     const [isStatUsed, setStatUsed] = React.useState(false);
     useEffect(() => {
@@ -244,28 +233,6 @@ export function CategoryStat({
                     </div>
                 )
             ) : null}
-            {/* {(usedStatistics.INCOMING_CALLS || usedStatistics.OUTGOING_CALLS || usedStatistics.GENERAL_CALLS) ? (
-                (categoriesList === ''  || chosenCategories.length === 0 )? null : isDealsLoaded ? (
-                    <CallsStatistics
-                        setError={setError}
-                        categoriesCallsGoal={categoriesCallsGoal}
-                        setCategoriesCallsGoal={setCategoriesCallsGoal}
-                        setChanges={setChanges}
-                        chosenCategories={chosenCategories}
-                        countCalls={countCalls}
-                        usedStatistics={usedStatistics}
-                    />
-                ) : (
-                    <div className="row my-4 g-0 justify-content-center">
-                        <div className="spinner-border col-2">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                        <p className="ms-3 mb-0 col align-self-center">
-                            Загрузка, подождите...
-                        </p>
-                    </div>
-                )
-            ) : null} */}
             {isStatUsed &&
             (categoriesList === '' || chosenCategories.length === 0) ? (
                 <p className="text-info">
@@ -281,11 +248,9 @@ export function CategoryStat({
                         dealsSum={dealsSum}
                         setDealsSum={setDealsSum}
                         countDeals={countDeals}
-                        countCalls={countCalls}
                         setCountDeals={setCountDeals}
                         countProducts={countProducts}
                         setCountProducts={setCountProducts}
-                        setCountCalls={setCountCalls}
                         usedStatistics={usedStatistics}
                         isStatUsed={isStatUsed}
                     />
@@ -308,7 +273,6 @@ export function CategoryStat({
                     categoriesMoneyGoal={categoriesMoneyGoal}
                     categoriesDealsGoal={categoriesDealsGoal}
                     categoriesProductsGoal={categoriesProductsGoal}
-                    categoriesCallsGoal={categoriesCallsGoal}
                     activeCategories={activeCategories}
                     dashboard={dashboard}
                     setDashboards={setDashboards}
