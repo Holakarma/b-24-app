@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export function AddDashBoardBtn({
     dashboards,
@@ -12,21 +12,20 @@ export function AddDashBoardBtn({
     setOpenedDashboard,
 }) {
     function createDashboard() {
-        const strParticipants = participants.join(",");
+        const strParticipants = participants.join(',');
         BX24.callMethod(
-            "entity.item.add",
+            'entity.item.add',
             {
-                ENTITY: "dashboards",
-                NAME: "dashboard-item",
+                ENTITY: 'dashboards',
+                NAME: dashBoardTitle,
                 PROPERTY_VALUES: {
-                    DASHBOARD_TITLE: dashBoardTitle,
                     PARTICIPANTS_LIST: strParticipants,
                 },
             },
             function () {
                 BX24.callMethod(
-                    "entity.item.get",
-                    { ENTITY: "dashboards" },
+                    'entity.item.get',
+                    { ENTITY: 'dashboards' },
                     function (result) {
                         setDashboards(result.data());
                         toggleSettings();
@@ -35,8 +34,7 @@ export function AddDashBoardBtn({
                                 .data()
                                 .find(
                                     (dashboards) =>
-                                        dashboards.PROPERTY_VALUES
-                                            .DASHBOARD_TITLE === dashBoardTitle,
+                                        dashboards.NAME === dashBoardTitle,
                                 ),
                         );
                     },
@@ -47,26 +45,23 @@ export function AddDashBoardBtn({
 
     function validateDashboard() {
         if (!dashBoardTitle) {
-            setStatus("emptyField");
+            setStatus('emptyField');
         } else if (
-            dashboards.find(
-                (dashboard) =>
-                    dashboard.PROPERTY_VALUES.DASHBOARD_TITLE == dashBoardTitle,
-            )
+            dashboards.find((dashboard) => dashboard.NAME == dashBoardTitle)
         ) {
-            setStatus("sameName");
+            setStatus('sameName');
         } else {
-            setStatus("noErr");
+            setStatus('noErr');
             createDashboard();
         }
     }
     function reColorBtn() {
         switch (status) {
-            case "noErr":
-                return "btn-success";
-            case "emptyField":
-            case "sameName":
-                return "border-danger text-danger";
+            case 'noErr':
+                return 'btn-success';
+            case 'emptyField':
+            case 'sameName':
+                return 'border-danger text-danger';
         }
     }
     function showAlert() {
@@ -79,7 +74,8 @@ export function AddDashBoardBtn({
             <button
                 onClick={validateDashboard}
                 type="button"
-                className={`btn ${reColorBtn()}`}>
+                className={`btn ${reColorBtn()}`}
+            >
                 Создать
             </button>
         </>

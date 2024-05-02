@@ -74,7 +74,7 @@ export function StatisticChecks({ usedStatistics, setStatistics, setChanges }) {
                 </label>
             </div>
 
-            <div className="form-check form-switch mt-3 mb-2">
+            {/* <div className="form-check form-switch mt-3 mb-2">
                 <input
                     checked={
                         usedStatistics.OUTGOING_CALLS ||
@@ -182,7 +182,7 @@ export function StatisticChecks({ usedStatistics, setStatistics, setChanges }) {
                         </label>
                     </div>
                 </div>
-            ) : null}
+            ) : null} */}
         </div>
     );
 }

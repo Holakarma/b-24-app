@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import CategoriesPopup from "../categories-popup/CategoriesPopup";
-import { getCategories } from "../../../utils/createSavedCategories";
+import React, { useEffect } from 'react';
+import CategoriesPopup from '../categories-popup/CategoriesPopup';
+import { getCategories } from '../../../utils/createSavedCategories';
 
 export function ChoiceCategory({
     activeCategories,
@@ -27,13 +27,14 @@ export function ChoiceCategory({
     }, [activeCategories]);
 
     return (
-        <div className="mb-4 mt-2 w-25">
+        <>
             <button
                 onClick={() => {
                     setShowCategories(showCategories ? false : true);
                 }}
                 className="btn btn-primary w-100"
-                type="button">
+                type="button"
+            >
                 Выбрать воронки
             </button>
             {showCategories ? (
@@ -47,6 +48,6 @@ export function ChoiceCategory({
                     setDealsLoaded={setDealsLoaded}
                 />
             ) : null}
-        </div>
+        </>
     );
 }

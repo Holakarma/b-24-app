@@ -1,8 +1,14 @@
-import React, { useEffect } from "react";
-import { DeleteDashboard } from "../delete-dashboard/DeleteDashboard";
-import { ShowParticipants } from "../show-participants/ShowParticipants";
-import { getUsers } from "../../utils/createSavedUsers";
-import { CategoryStat } from "../category-components/category-stat/CategoryStat";
+import React, { useEffect, useMemo } from 'react';
+import { DeleteDashboard } from '../delete-dashboard/DeleteDashboard';
+import { ShowParticipants } from '../show-participants/ShowParticipants';
+import { getUsers } from '../../utils/createSavedUsers';
+import { alias, openedStat } from './openedStat';
+import { CategoryStat } from '../category-components/category-stat/CategoryStat';
+import DepartmentStat from '../department-components/deparatmentStat/DepartmentStat';
+
+/* 
+BX24.callMethod('entity.delete', {ENTITY: 'dashboards'}, e => e.data())
+ */
 
 export function DashboardOpen({
     setTitle,
@@ -17,43 +23,65 @@ export function DashboardOpen({
     const [render, setRender] = React.useState(false);
     function fetchParams(param) {
         switch (param) {
-            case "users":
+            case 'users':
                 setFetchedUsers(true);
-                if (fetchedCategories) {
-                    setRender(true);
-                }
                 break;
-            case "categories":
+            case 'categories':
                 setFetchedCateories(true);
-                if (fetchedUsers) {
-                    setRender(true);
-                }
                 break;
         }
     }
+    useEffect(() => {
+        if (fetchedUsers && fetchedCategories) setRender(true);
+    }, [fetchedUsers, fetchedCategories]);
 
     const [arParticipants, setArParticipants] = React.useState([]);
-
     useEffect(() => {
         let isMounted = true;
-        if (usersList != "") {
-            getUsers(usersList.split(",")).then((result) => {
+        if (usersList != '') {
+            getUsers(usersList.split(',')).then((result) => {
                 if (isMounted) {
                     setArParticipants(result);
-                    fetchParams("users");
+                    fetchParams('users');
                 }
             });
         } else {
-            fetchParams("users");
+            fetchParams('users');
         }
         if (isMounted) {
-            setTitle(dashboard.PROPERTY_VALUES.DASHBOARD_TITLE);
+            setTitle(dashboard.NAME);
         }
         return () => {
-            setTitle("Дашборды");
+            setTitle('Дашборды');
             isMounted = false;
         };
     }, [usersList]);
+
+    const [pickedStat, pickStat] = React.useState(openedStat.category);
+
+    let props = useMemo(() => {
+        switch (pickedStat) {
+            case openedStat.category:
+                return {
+                    render,
+                    dashboard,
+                    fetchParams,
+                    setDashboards,
+                };
+            case openedStat.department:
+                return {
+                    dashboard,
+                };
+        }
+    }, [pickedStat, render, dashboard]);
+
+    const stats = React.useMemo(() => {
+        const resArr = [];
+        for (let i in openedStat) {
+            resArr.push(i);
+        }
+        return resArr;
+    }, []);
 
     return (
         <>
@@ -65,41 +93,29 @@ export function DashboardOpen({
                     }}
                     type="button"
                     className="btn-close position-absolute end-0 top-0"
-                    aria-label="Close"></button>
+                    aria-label="Close"
+                ></button>
                 <div className="card-header">
                     <ul className="nav nav-tabs card-header-tabs">
-                        <li className="nav-item">
-                            <button className="nav-link active">
-                                Воронки
-                            </button>
-                        </li>
-                        <li className="nav-item">
-                            <button className="nav-link">
-                                Отделы
-                            </button>
-                        </li>
-                        <li className="nav-item">
-                            <button className="nav-link">
-                                Сотрудники
-                            </button>
-                        </li>
-                        <li className="nav-item">
-                            <button className="nav-link">
-                                Настраиваемая статистика
-                            </button>
-                        </li>
+                        {stats.map((s) => (
+                            <li
+                                key={s}
+                                className="nav-item"
+                            >
+                                <button
+                                    className={`nav-link ${
+                                        pickedStat === openedStat[s] && 'active'
+                                    }`}
+                                    onClick={() => pickStat(openedStat[s])}
+                                >
+                                    {openedStat[s]}
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </div>
-                <div className="card-body">
-                    <CategoryStat
-                        render={render}
-                        dashboard={dashboard}
-                        fetchParams={fetchParams}
-                        setDashboards={setDashboards}
-                    />
-                    {/* {usersList === "" ? null : (
-                        <ShowParticipants arParticipants={arParticipants} />
-                    )} */}
+                <div className="card-body">{alias(pickedStat, props)}</div>
+                <div className="card-footer">
                     <DeleteDashboard
                         dashboard={dashboard}
                         setDashboards={setDashboards}
